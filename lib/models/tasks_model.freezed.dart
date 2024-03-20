@@ -131,10 +131,9 @@ class __$$TasksModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$TasksModelImpl extends _TasksModel {
-  const _$TasksModelImpl(
-      {this.success = true, this.statusCode = "", required this.data})
-      : super._();
+class _$TasksModelImpl implements _TasksModel {
+  _$TasksModelImpl(
+      {this.success = false, this.statusCode = "", required this.data});
 
   factory _$TasksModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$TasksModelImplFromJson(json);
@@ -182,12 +181,11 @@ class _$TasksModelImpl extends _TasksModel {
   }
 }
 
-abstract class _TasksModel extends TasksModel {
-  const factory _TasksModel(
+abstract class _TasksModel implements TasksModel {
+  factory _TasksModel(
       {final bool success,
       final String statusCode,
       required final TasksModelData data}) = _$TasksModelImpl;
-  const _TasksModel._() : super._();
 
   factory _TasksModel.fromJson(Map<String, dynamic> json) =
       _$TasksModelImpl.fromJson;
@@ -308,10 +306,9 @@ class __$$TasksModelDataImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$TasksModelDataImpl extends _TasksModelData {
-  const _$TasksModelDataImpl(
-      {this.title = "", this.description = "", this.completed = false})
-      : super._();
+class _$TasksModelDataImpl implements _TasksModelData {
+  _$TasksModelDataImpl(
+      {this.title = "", this.description = "", this.completed = false});
 
   factory _$TasksModelDataImpl.fromJson(Map<String, dynamic> json) =>
       _$$TasksModelDataImplFromJson(json);
@@ -362,12 +359,11 @@ class _$TasksModelDataImpl extends _TasksModelData {
   }
 }
 
-abstract class _TasksModelData extends TasksModelData {
-  const factory _TasksModelData(
+abstract class _TasksModelData implements TasksModelData {
+  factory _TasksModelData(
       {final String title,
       final String description,
       final bool completed}) = _$TasksModelDataImpl;
-  const _TasksModelData._() : super._();
 
   factory _TasksModelData.fromJson(Map<String, dynamic> json) =
       _$TasksModelDataImpl.fromJson;
