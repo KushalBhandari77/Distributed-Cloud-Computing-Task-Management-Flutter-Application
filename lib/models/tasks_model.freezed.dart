@@ -21,8 +21,8 @@ TasksModel _$TasksModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$TasksModel {
   bool get success => throw _privateConstructorUsedError;
-  String get statusCode => throw _privateConstructorUsedError;
-  TasksModelData get data => throw _privateConstructorUsedError;
+  int get statusCode => throw _privateConstructorUsedError;
+  List<TasksModelData> get data => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,9 +36,7 @@ abstract class $TasksModelCopyWith<$Res> {
           TasksModel value, $Res Function(TasksModel) then) =
       _$TasksModelCopyWithImpl<$Res, TasksModel>;
   @useResult
-  $Res call({bool success, String statusCode, TasksModelData data});
-
-  $TasksModelDataCopyWith<$Res> get data;
+  $Res call({bool success, int statusCode, List<TasksModelData> data});
 }
 
 /// @nodoc
@@ -66,20 +64,12 @@ class _$TasksModelCopyWithImpl<$Res, $Val extends TasksModel>
       statusCode: null == statusCode
           ? _value.statusCode
           : statusCode // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       data: null == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
-              as TasksModelData,
+              as List<TasksModelData>,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $TasksModelDataCopyWith<$Res> get data {
-    return $TasksModelDataCopyWith<$Res>(_value.data, (value) {
-      return _then(_value.copyWith(data: value) as $Val);
-    });
   }
 }
 
@@ -91,10 +81,7 @@ abstract class _$$TasksModelImplCopyWith<$Res>
       __$$TasksModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool success, String statusCode, TasksModelData data});
-
-  @override
-  $TasksModelDataCopyWith<$Res> get data;
+  $Res call({bool success, int statusCode, List<TasksModelData> data});
 }
 
 /// @nodoc
@@ -120,11 +107,11 @@ class __$$TasksModelImplCopyWithImpl<$Res>
       statusCode: null == statusCode
           ? _value.statusCode
           : statusCode // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       data: null == data
-          ? _value.data
+          ? _value._data
           : data // ignore: cast_nullable_to_non_nullable
-              as TasksModelData,
+              as List<TasksModelData>,
     ));
   }
 }
@@ -133,7 +120,10 @@ class __$$TasksModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$TasksModelImpl implements _TasksModel {
   _$TasksModelImpl(
-      {this.success = false, this.statusCode = "", required this.data});
+      {this.success = false,
+      this.statusCode = -1,
+      required final List<TasksModelData> data})
+      : _data = data;
 
   factory _$TasksModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$TasksModelImplFromJson(json);
@@ -143,9 +133,14 @@ class _$TasksModelImpl implements _TasksModel {
   final bool success;
   @override
   @JsonKey()
-  final String statusCode;
+  final int statusCode;
+  final List<TasksModelData> _data;
   @override
-  final TasksModelData data;
+  List<TasksModelData> get data {
+    if (_data is EqualUnmodifiableListView) return _data;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_data);
+  }
 
   @override
   String toString() {
@@ -160,12 +155,13 @@ class _$TasksModelImpl implements _TasksModel {
             (identical(other.success, success) || other.success == success) &&
             (identical(other.statusCode, statusCode) ||
                 other.statusCode == statusCode) &&
-            (identical(other.data, data) || other.data == data));
+            const DeepCollectionEquality().equals(other._data, _data));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, success, statusCode, data);
+  int get hashCode => Object.hash(runtimeType, success, statusCode,
+      const DeepCollectionEquality().hash(_data));
 
   @JsonKey(ignore: true)
   @override
@@ -184,8 +180,8 @@ class _$TasksModelImpl implements _TasksModel {
 abstract class _TasksModel implements TasksModel {
   factory _TasksModel(
       {final bool success,
-      final String statusCode,
-      required final TasksModelData data}) = _$TasksModelImpl;
+      final int statusCode,
+      required final List<TasksModelData> data}) = _$TasksModelImpl;
 
   factory _TasksModel.fromJson(Map<String, dynamic> json) =
       _$TasksModelImpl.fromJson;
@@ -193,9 +189,9 @@ abstract class _TasksModel implements TasksModel {
   @override
   bool get success;
   @override
-  String get statusCode;
+  int get statusCode;
   @override
-  TasksModelData get data;
+  List<TasksModelData> get data;
   @override
   @JsonKey(ignore: true)
   _$$TasksModelImplCopyWith<_$TasksModelImpl> get copyWith =>
@@ -208,6 +204,7 @@ TasksModelData _$TasksModelDataFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$TasksModelData {
+  int get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   bool get completed => throw _privateConstructorUsedError;
@@ -224,7 +221,7 @@ abstract class $TasksModelDataCopyWith<$Res> {
           TasksModelData value, $Res Function(TasksModelData) then) =
       _$TasksModelDataCopyWithImpl<$Res, TasksModelData>;
   @useResult
-  $Res call({String title, String description, bool completed});
+  $Res call({int id, String title, String description, bool completed});
 }
 
 /// @nodoc
@@ -240,11 +237,16 @@ class _$TasksModelDataCopyWithImpl<$Res, $Val extends TasksModelData>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? title = null,
     Object? description = null,
     Object? completed = null,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -269,7 +271,7 @@ abstract class _$$TasksModelDataImplCopyWith<$Res>
       __$$TasksModelDataImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String title, String description, bool completed});
+  $Res call({int id, String title, String description, bool completed});
 }
 
 /// @nodoc
@@ -283,11 +285,16 @@ class __$$TasksModelDataImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? title = null,
     Object? description = null,
     Object? completed = null,
   }) {
     return _then(_$TasksModelDataImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -308,11 +315,17 @@ class __$$TasksModelDataImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$TasksModelDataImpl implements _TasksModelData {
   _$TasksModelDataImpl(
-      {this.title = "", this.description = "", this.completed = false});
+      {this.id = -1,
+      this.title = "",
+      this.description = "",
+      this.completed = false});
 
   factory _$TasksModelDataImpl.fromJson(Map<String, dynamic> json) =>
       _$$TasksModelDataImplFromJson(json);
 
+  @override
+  @JsonKey()
+  final int id;
   @override
   @JsonKey()
   final String title;
@@ -325,7 +338,7 @@ class _$TasksModelDataImpl implements _TasksModelData {
 
   @override
   String toString() {
-    return 'TasksModelData(title: $title, description: $description, completed: $completed)';
+    return 'TasksModelData(id: $id, title: $title, description: $description, completed: $completed)';
   }
 
   @override
@@ -333,6 +346,7 @@ class _$TasksModelDataImpl implements _TasksModelData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TasksModelDataImpl &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
                 other.description == description) &&
@@ -342,7 +356,8 @@ class _$TasksModelDataImpl implements _TasksModelData {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, title, description, completed);
+  int get hashCode =>
+      Object.hash(runtimeType, id, title, description, completed);
 
   @JsonKey(ignore: true)
   @override
@@ -361,13 +376,16 @@ class _$TasksModelDataImpl implements _TasksModelData {
 
 abstract class _TasksModelData implements TasksModelData {
   factory _TasksModelData(
-      {final String title,
+      {final int id,
+      final String title,
       final String description,
       final bool completed}) = _$TasksModelDataImpl;
 
   factory _TasksModelData.fromJson(Map<String, dynamic> json) =
       _$TasksModelDataImpl.fromJson;
 
+  @override
+  int get id;
   @override
   String get title;
   @override

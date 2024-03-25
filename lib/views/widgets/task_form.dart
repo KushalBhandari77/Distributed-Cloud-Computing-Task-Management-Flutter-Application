@@ -1,18 +1,35 @@
+import 'package:dcc_task_management/models/tasks_model.dart';
+import 'package:dcc_task_management/services/api_services/add_tasks.dart';
+import 'package:dcc_task_management/services/api_services/edit_tasks.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TaskFormView extends StatefulWidget {
-  const TaskFormView({super.key});
+class TaskFormView extends ConsumerStatefulWidget {
+  const TaskFormView({super.key, this.tasksModelData});
+  final TasksModelData? tasksModelData;
 
   @override
-  State<TaskFormView> createState() => _TaskFormViewState();
+  ConsumerState<TaskFormView> createState() => _TaskFormViewState();
 }
 
-class _TaskFormViewState extends State<TaskFormView> {
+class _TaskFormViewState extends ConsumerState<TaskFormView> {
   final GlobalKey<FormState> _tasksFormKey = GlobalKey<FormState>();
   final TextEditingController _taskTitleTextEditingController =
       TextEditingController();
   final TextEditingController _taskDescriptionTextEditingController =
       TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.tasksModelData != null) {
+      setState(() {
+        _taskTitleTextEditingController.text = widget.tasksModelData!.title;
+        _taskDescriptionTextEditingController.text =
+            widget.tasksModelData!.description;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,8 +61,6 @@ class _TaskFormViewState extends State<TaskFormView> {
                         hintText: 'Task Title',
                         border: InputBorder.none,
                         contentPadding: EdgeInsets.symmetric(horizontal: 12),
-                        errorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.red)),
                       ),
                     ),
                   ),
@@ -70,10 +85,6 @@ class _TaskFormViewState extends State<TaskFormView> {
                         hintText: 'Task Description',
                         border: InputBorder.none,
                         contentPadding: EdgeInsets.symmetric(horizontal: 12),
-                        errorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                          color: Colors.red,
-                        )),
                       ),
                     ),
                   )
@@ -86,17 +97,30 @@ class _TaskFormViewState extends State<TaskFormView> {
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
                 onPressed: () {
-                  /// Validates the form.
                   if (_tasksFormKey.currentState!.validate()) {
+                    if (widget.tasksModelData != null) {
+                      ref.read(editTaskNotifier.notifier).editTask(
+                          widget.tasksModelData!.id,
+                          TasksModelData(
+                              title: _taskTitleTextEditingController.text,
+                              description:
+                                  _taskDescriptionTextEditingController.text));
+                    } else {
+                      ref.read(addTasksNotifier.notifier).postData(
+                          TasksModelData(
+                              title: _taskTitleTextEditingController.text,
+                              description:
+                                  _taskDescriptionTextEditingController.text));
+                    }
+
                     _taskTitleTextEditingController.clear();
                     _taskDescriptionTextEditingController.clear();
-
                     Navigator.pop(context);
                   }
                 },
-                child: const Text(
-                  'ADD',
-                  style: TextStyle(color: Colors.white),
+                child: Text(
+                  widget.tasksModelData != null ? "Edit Task" : 'ADD Task',
+                  style: const TextStyle(color: Colors.white),
                 ))),
       ],
     ));

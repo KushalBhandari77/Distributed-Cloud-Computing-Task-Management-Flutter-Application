@@ -7,8 +7,8 @@ part "tasks_model.g.dart";
 class TasksModel with _$TasksModel {
   factory TasksModel(
       {@Default(false) bool success,
-      @Default("") String statusCode,
-      required TasksModelData data}) = _TasksModel;
+      @Default(-1) int statusCode,
+      required List<TasksModelData> data}) = _TasksModel;
 
   factory TasksModel.fromJson(Map<String, dynamic> json) =>
       _$TasksModelFromJson(json);
@@ -17,7 +17,8 @@ class TasksModel with _$TasksModel {
 @freezed
 class TasksModelData with _$TasksModelData {
   factory TasksModelData(
-      {@Default("") String title,
+      {@Default(-1) int id,
+      @Default("") String title,
       @Default("") String description,
       @Default(false) bool completed}) = _TasksModelData;
 

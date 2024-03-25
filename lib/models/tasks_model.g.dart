@@ -9,8 +9,10 @@ part of 'tasks_model.dart';
 _$TasksModelImpl _$$TasksModelImplFromJson(Map<String, dynamic> json) =>
     _$TasksModelImpl(
       success: json['success'] as bool? ?? false,
-      statusCode: json['statusCode'] as String? ?? "",
-      data: TasksModelData.fromJson(json['data'] as Map<String, dynamic>),
+      statusCode: json['statusCode'] as int? ?? -1,
+      data: (json['data'] as List<dynamic>)
+          .map((e) => TasksModelData.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$TasksModelImplToJson(_$TasksModelImpl instance) =>
@@ -22,6 +24,7 @@ Map<String, dynamic> _$$TasksModelImplToJson(_$TasksModelImpl instance) =>
 
 _$TasksModelDataImpl _$$TasksModelDataImplFromJson(Map<String, dynamic> json) =>
     _$TasksModelDataImpl(
+      id: json['id'] as int? ?? -1,
       title: json['title'] as String? ?? "",
       description: json['description'] as String? ?? "",
       completed: json['completed'] as bool? ?? false,
@@ -30,6 +33,7 @@ _$TasksModelDataImpl _$$TasksModelDataImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$TasksModelDataImplToJson(
         _$TasksModelDataImpl instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'title': instance.title,
       'description': instance.description,
       'completed': instance.completed,

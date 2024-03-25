@@ -1,4 +1,4 @@
-import 'package:dcc_task_management/services/api_services/api_services.dart';
+import 'package:dcc_task_management/services/api_services/get_tasks.dart';
 import 'package:dcc_task_management/views/task_management_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -25,7 +25,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return Scaffold(
         appBar: AppBar(
           title: const Text(
-            "Task Management",
+            "DCC Task Management",
             style: TextStyle(color: Colors.white),
           ),
           centerTitle: true,
@@ -40,7 +40,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           },
           success: (data) {
             return TaskManagementView(
-              tasksDataList: data,
+              tasksDataList: data.reversed.toList(),
             );
           },
           initial: () => const SizedBox(),
