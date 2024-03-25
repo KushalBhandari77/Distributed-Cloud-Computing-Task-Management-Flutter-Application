@@ -1,3 +1,3 @@
-# dcc_task_management
+# AWS Based Task Management Flutter Application.
 
-A new Flutter project.
+ 
